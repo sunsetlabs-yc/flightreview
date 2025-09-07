@@ -3,7 +3,8 @@ import { ReviewService } from '../../core/services/review.service';
 
 @Component({
   selector: 'app-review-list',
-  templateUrl: './review-list.component.html'
+  templateUrl: './review-list.component.html',
+  styleUrls: ['./review-list.component.css']
 })
 export class ReviewListComponent implements OnInit {
   reviews: any[] = [];

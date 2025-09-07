@@ -4,7 +4,8 @@ import { Flight } from '../../shared/models/flight';
 
 @Component({
   selector: 'app-review-form',
-  templateUrl: './review-form.component.html'
+  templateUrl: './review-form.component.html',
+  styleUrls: ['./review-form.component.css']
 })
 export class ReviewFormComponent implements OnInit {
   form = { customerName: '', customerEmail: '', flightNumber: '', rating: 1, description: '' };

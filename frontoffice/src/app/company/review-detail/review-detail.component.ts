@@ -4,7 +4,8 @@ import { ReviewService } from '../../core/services/review.service';
 
 @Component({
   selector: 'app-review-detail',
-  templateUrl: './review-detail.component.html'
+  templateUrl: './review-detail.component.html',
+  styleUrls: ['./review-detail.component.css']
 })
 export class ReviewDetailComponent implements OnInit {
   review: any = null;

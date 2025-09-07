@@ -1,32 +1,80 @@
-<h2>Published Reviews</h2>
+<div class="review-list">
+  <div class="list-header">
+    <h2>Published Reviews</h2>
+    <p>Read what our passengers have to say about their flights</p>
+  </div>
 
-<form (ngSubmit)="onSearch()" class="search-form">
-  <input type="text" placeholder="Flight Number" [(ngModel)]="filters.flightNumber" name="flightNumber" />
-  <input type="text" placeholder="Keyword" [(ngModel)]="filters.keyword" name="keyword" />
-  <input type="date" [(ngModel)]="filters.date" name="date" />
-  <button type="submit">Search</button>
-</form>
+  <form (ngSubmit)="onSearch()" class="search-form">
+    <h3>Search Reviews</h3>
+    <div class="search-filters">
+      <div class="form-group">
+        <label for="flightNumber">Flight Number</label>
+        <input 
+          type="text" 
+          id="flightNumber"
+          placeholder="e.g., AF123" 
+          [(ngModel)]="filters.flightNumber" 
+          name="flightNumber" />
+      </div>
+      
+      <div class="form-group">
+        <label for="keyword">Keyword</label>
+        <input 
+          type="text" 
+          id="keyword"
+          placeholder="Search in reviews..." 
+          [(ngModel)]="filters.keyword" 
+          name="keyword" />
+      </div>
+      
+      <div class="form-group">
+        <label for="date">Flight Date</label>
+        <input 
+          type="date" 
+          id="date"
+          [(ngModel)]="filters.date" 
+          name="date" />
+      </div>
+    </div>
+    <button type="submit" class="search-button">Search Reviews</button>
+  </form>
 
-<ul>
-  <li *ngFor="let review of reviews" class="review-item">
-    <div class="review-header">
-      <h3>{{ review.flightNumber }} - {{ review.origin }} to {{ review.destination }}</h3>
-      <div class="flight-date" *ngIf="review.flightDate"><strong>Flight Date:</strong> {{ review.flightDate | date:'mediumDate' }}</div>
-      <div class="rating">⭐ {{ review.rating }}/5</div>
+  <div class="reviews-container" *ngIf="reviews.length > 0; else noReviews">
+    <div *ngFor="let review of reviews" class="review-item">
+      <div class="review-header">
+        <h3>{{ review.flightNumber }} - {{ review.origin }} to {{ review.destination }}</h3>
+        <div class="rating">
+          <span class="star">★</span>
+          <span>{{ review.rating }}/5</span>
+        </div>
+      </div>
+      
+      <div class="flight-date" *ngIf="review.flightDate">
+        <strong>Flight Date:</strong> {{ review.flightDate | date:'mediumDate' }}
+      </div>
+      
+      <div class="review-content">
+        <p><strong>Review:</strong> {{ review.description }}</p>
+        <p><strong>Submitted:</strong> {{ review.submittedAt | date:'medium' }}</p>
+      </div>
+      
+      <div class="company-response" *ngIf="review.companyResponse">
+        <h4>Company Response</h4>
+        <p>{{ review.companyResponse }}</p>
+      </div>
     </div>
-    <div class="review-content">
-      <p><strong>Review:</strong> {{ review.description }}</p>
-      <p><strong>Submitted:</strong> {{ review.submittedAt | date:'medium' }}</p>
-    </div>
-    <div class="company-response" *ngIf="review.companyResponse">
-      <h4>Company Response:</h4>
-      <p>{{ review.companyResponse }}</p>
-    </div>
-  </li>
-</ul>
+  </div>
 
-<div class="pagination">
-  <button (click)="prevPage()" [disabled]="page === 0">Previous</button>
-  <span>Page {{ page + 1 }} of {{ totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="page >= totalPages - 1">Next</button>
+  <ng-template #noReviews>
+    <div class="no-reviews">
+      <h3>No reviews found</h3>
+      <p>Try adjusting your search criteria or check back later for new reviews.</p>
+    </div>
+  </ng-template>
+
+  <div class="pagination" *ngIf="reviews.length > 0">
+    <button (click)="prevPage()" [disabled]="page === 0" class="secondary">Previous</button>
+    <span>Page {{ page + 1 }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="page >= totalPages - 1" class="secondary">Next</button>
+  </div>
 </div>

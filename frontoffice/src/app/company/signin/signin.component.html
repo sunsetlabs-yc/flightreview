@@ -1,6 +1,39 @@
-<h2>Company Signin</h2>
-<form (ngSubmit)="onSubmit()" #signinForm="ngForm">
-  <input type="text" placeholder="Company Name" [(ngModel)]="form.name" name="name" required />
-  <input type="password" placeholder="Password" [(ngModel)]="form.password" name="password" required />
-  <button type="submit">Signin</button>
-</form>
+<div class="signin-container">
+  <div class="signin-header">
+    <h2>Company Sign In</h2>
+    <p>Access your company dashboard</p>
+  </div>
+  
+  <div class="signin-form">
+    <form (ngSubmit)="onSubmit()" #signinForm="ngForm">
+      <div class="form-group">
+        <label for="companyName">Company Name</label>
+        <input 
+          type="text" 
+          id="companyName"
+          placeholder="Enter your company name" 
+          [(ngModel)]="form.name" 
+          name="name" 
+          required />
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password"
+          placeholder="Enter your password" 
+          [(ngModel)]="form.password" 
+          name="password" 
+          required />
+      </div>
+      
+      <button type="submit" class="submit-button">Sign In</button>
+    </form>
+    
+    <div class="signup-link">
+      <p>Don't have an account?</p>
+      <a routerLink="/company/signup">Create Company Account</a>
+    </div>
+  </div>
+</div>
