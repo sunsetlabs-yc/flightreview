@@ -1,0 +1,7 @@
+<h2>Company Signup</h2>
+<form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+  <input type="text" placeholder="Company Name" [(ngModel)]="form.name" name="name" required />
+  <input type="email" placeholder="Email" [(ngModel)]="form.email" name="email" required />
+  <input type="password" placeholder="Password" [(ngModel)]="form.password" name="password" required />
+  <button type="submit">Signup</button>
+</form>

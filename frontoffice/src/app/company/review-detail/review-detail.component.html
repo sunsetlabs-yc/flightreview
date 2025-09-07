@@ -1,0 +1,45 @@
+<div class="review-detail" *ngIf="review">
+  <h2>Review Details</h2>
+  
+  <div class="review-info">
+    <h3>Review Information</h3>
+    <p><strong>Flight Number:</strong> {{ review.flightNumber }}</p>
+    <p><strong>Rating:</strong> {{ review.rating }}/5</p>
+    <p><strong>Description:</strong> {{ review.description }}</p>
+    <p><strong>Submitted:</strong> {{ review.submittedAt | date:'medium' }}</p>
+    <p><strong>Current State:</strong> {{ review.state }}</p>
+  </div>
+
+  <div class="response-section">
+    <h3>Company Response</h3>
+    
+    <div class="form-group">
+      <label for="responseText">Response:</label>
+      <textarea 
+        id="responseText"
+        [(ngModel)]="responseText" 
+        placeholder="Enter your response to this review..."
+        rows="4"
+        cols="50">
+      </textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="newState">New State:</label>
+      <select id="newState" [(ngModel)]="newState">
+        <option *ngFor="let state of states" [value]="state.value">
+          {{ state.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <button (click)="saveResponse()" class="save-btn">Save Response</button>
+      <button (click)="goBack()" class="back-btn">Back to Dashboard</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!review" class="loading">
+  Loading review details...
+</div>

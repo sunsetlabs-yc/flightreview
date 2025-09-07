@@ -1,0 +1,13 @@
+.main-nav{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:10px 16px;
+  background:#f7f7f8;
+  border-bottom:1px solid #e0e0e0;
+}
+.spacer { flex: 1; }
+.container { padding: 16px; }
+.link-button { cursor: pointer; text-decoration: none; color: #007acc; }
+a { color: #333; text-decoration: none; }
+a:hover { text-decoration: underline; }

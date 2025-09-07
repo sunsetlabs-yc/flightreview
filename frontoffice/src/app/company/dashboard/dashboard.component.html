@@ -1,0 +1,42 @@
+<h2>Company Dashboard</h2>
+
+<form (ngSubmit)="onSearch()" class="search-form">
+  <input type="text" placeholder="Flight Number" [(ngModel)]="filters.flightNumber" name="flightNumber" />
+  <input type="text" placeholder="Keyword" [(ngModel)]="filters.keyword" name="keyword" />
+  <input type="date" [(ngModel)]="filters.date" name="date" />
+  <select [(ngModel)]="filters.state" name="state">
+    <option value="">All</option>
+    <option value="SUBMITTED">Submitted</option>
+    <option value="TREATED">Treated</option>
+    <option value="PUBLISHED">Published</option>
+    <option value="REJECTED">Rejected</option>
+  </select>
+  <button type="submit">Filter</button>
+</form>
+
+<ul>
+  <li *ngFor="let review of reviews" class="review-item">
+    <div class="review-summary">
+      <div class="review-header">
+        <h3>{{ review.flightNumber }} - {{ review.origin }} to {{ review.destination }}</h3>
+        <div class="flight-date" *ngIf="review.flightDate"><strong>Flight Date:</strong> {{ review.flightDate | date:'mediumDate' }}</div>
+        <div class="rating">⭐ {{ review.rating }}/5</div>
+        <div class="state-badge" [class]="'state-' + review.state.toLowerCase()">{{ review.state }}</div>
+      </div>
+      <div class="review-content">
+        <p><strong>Review:</strong> {{ review.description }}</p>
+        <p><strong>Submitted:</strong> {{ review.submittedAt | date:'medium' }}</p>
+        <p><strong>Response:</strong> {{ review.responseText || 'No response yet' }}</p>
+      </div>
+    </div>
+    <div class="review-actions">
+      <button (click)="viewReview(review.id)" class="view-btn">View Details</button>
+    </div>
+  </li>
+</ul>
+
+<div class="pagination">
+  <button (click)="prevPage()" [disabled]="page === 0">Previous</button>
+  <span>Page {{ page + 1 }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="page >= totalPages - 1">Next</button>
+</div>

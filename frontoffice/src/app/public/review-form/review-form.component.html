@@ -1,0 +1,23 @@
+<h2>Submit Review</h2>
+<form (ngSubmit)="onSubmit()" #reviewForm="ngForm">
+  <input type="text" placeholder="Name" [(ngModel)]="form.customerName" name="customerName" required />
+  <input type="email" placeholder="Email" [(ngModel)]="form.customerEmail" name="customerEmail" required />
+  
+  <select [(ngModel)]="form.flightNumber" name="flightNumber" (change)="onFlightChange()" required>
+    <option value="">Select a flight</option>
+    <option *ngFor="let flight of flights" [value]="flight.flightNumber">
+      {{flight.flightNumber}} - {{flight.origin}} to {{flight.destination}} ({{flight.flightDate}})
+    </option>
+  </select>
+  
+  <div *ngIf="selectedFlight" class="flight-details">
+    <h3>Selected Flight Details:</h3>
+    <p><strong>Flight Number:</strong> {{selectedFlight.flightNumber}}</p>
+    <p><strong>Route:</strong> {{selectedFlight.origin}} → {{selectedFlight.destination}}</p>
+    <p><strong>Date:</strong> {{selectedFlight.flightDate}}</p>
+  </div>
+  
+  <input type="number" min="1" max="5" placeholder="Rating" [(ngModel)]="form.rating" name="rating" required />
+  <textarea placeholder="Description" [(ngModel)]="form.description" name="description"></textarea>
+  <button type="submit">Submit</button>
+</form>

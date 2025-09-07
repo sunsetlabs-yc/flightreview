@@ -1,0 +1,6 @@
+<h2>Company Signin</h2>
+<form (ngSubmit)="onSubmit()" #signinForm="ngForm">
+  <input type="text" placeholder="Company Name" [(ngModel)]="form.name" name="name" required />
+  <input type="password" placeholder="Password" [(ngModel)]="form.password" name="password" required />
+  <button type="submit">Signin</button>
+</form>

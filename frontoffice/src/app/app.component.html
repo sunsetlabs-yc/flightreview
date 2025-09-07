@@ -1,0 +1,20 @@
+<nav class="main-nav">
+  <a routerLink="/">Home</a>
+  <a routerLink="/submit">Submit Review</a>
+
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="!auth.isLoggedIn(); else logged">
+    <a routerLink="/company/signup">Company Signup</a>
+    <a routerLink="/company/signin">Company Signin</a>
+  </ng-container>
+
+  <ng-template #logged>
+    <a routerLink="/company/dashboard">Dashboard</a>
+    <a (click)="logout()" class="link-button">Logout</a>
+  </ng-template>
+</nav>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
