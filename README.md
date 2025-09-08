@@ -128,6 +128,7 @@ cd frontoffice && npm start
 - Initialisation de la Queue : Il faut soumettre un avis avant de lancer le backoffice pour initialiser RabbitMQ
 - Filtre par Date : Le filtrage sur les dates ne fonctionne pas
 - Tests Backend : Tests générés par IA mais non finalisés
+- Frontend : Écrans créés rapidement avec l'IA générative puis peaufinés toujours grâce à l'IA.
 - Logs Centralisés : Absence de système de logging centralisé
 - Robustesse : L'application manque de robustesse générale
 - Gestion d'Erreurs : La gestion des exceptions n'est pas au niveau souhaité
