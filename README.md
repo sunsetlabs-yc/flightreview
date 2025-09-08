@@ -76,7 +76,40 @@ Choix de Modélisation :
 - État des Avis :  (SUBMITTED → TREATED → PUBLISHED / REJECTED) pour le suivi
 - Index : Optimisation des requêtes par état, vol et date
 
-### 4. Séparation des Responsabilités
+### 4. Sécurité du Backoffice
+
+Le service backoffice est sécurisé avec Spring Security et JWT :
+
+Configuration de Sécurité :
+- Stateless : Pas de session serveur, authentification basée sur JWT
+- Endpoints publics : `/api/v1/company/**` (signup/signin) accessibles sans authentification
+- Endpoints protégés : Tous les autres endpoints nécessitent un token JWT valide
+
+Authentification JWT :
+- Génération : Token créé lors du signin avec le nom de la compagnie
+- Validation : Vérification de la signature et de l'expiration (1 heure)
+- Filtre personnalisé : `JwtAuthenticationFilter` extrait et valide le token Bearer
+- Autorisation : Attribution du rôle `ROLE_COMPANY` aux compagnies authentifiées
+
+Sécurité des Mots de Passe :
+- Hachage BCrypt : Mots de passe hashés avec BCrypt avant stockage
+- Validation : Vérification du mot de passe lors du signin
+
+Flux d'Authentification :
+```
+1. Company signup/signin → JWT généré
+2. Client envoie JWT dans header Authorization: Bearer <token>
+3. JwtAuthenticationFilter valide le token
+4. SecurityContext contient l'authentification
+5. Accès autorisé aux endpoints protégés
+```
+
+Limitation Actuelle :
+- Les compagnies peuvent s'inscrire mais ne peuvent pas créer de vols via l'interface
+- Les vols sont créés uniquement lors de l'initialisation de la base de données (db/init/V1__init.sql)
+- Une compagnie nouvellement créée ne pourra pas recevoir d'avis car elle n'a pas de vols associés
+
+### 5. Séparation des Responsabilités
 
 Pattern MVC + Repository :
 
@@ -100,7 +133,7 @@ Pattern MVC + Repository :
   - Requêtes SQL via JPA/Hibernate
   - Mapping objet-relationnel
 
-**Exemple de Flux :**
+Exemple de Flux :
 ```
 Controller → Service → Repository → Database
      ↓         ↓
